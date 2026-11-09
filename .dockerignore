@@ -1,5 +1,5 @@
 .git
-secrets/
+private/
 *.p8
 node_modules/
 .build/

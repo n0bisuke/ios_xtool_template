@@ -16,7 +16,8 @@ SwiftとxtoolでiOSアプリを開発するリポジトリです。環境の使�
 
 - 作成、編集、ビルドはコンテナ内で行う。Xcode GUIは使わない。
 - Swift、xtool、Darwin SDKを再インストールしない。
-- `*.p8` などの秘密鍵やApple Developerの認証情報を読まない、表示しない、送信しない。コミットもしない。
+- `private/secrets/` のファイル、`*.p8` などの秘密鍵、Apple Developerの認証情報を読まない、表示しない、送信しない。コミットもしない。
+- `private/downloads/` のファイル(Xcodeの `.xip` など)は、SDKのインストールなどに使ってよい。コミットはしない。
 - Appleの公開APIだけを使う。未確認のAPIを推測で実装しない。
 - 次の操作はユーザーに確認してから行う。
   - `xtool dev build --sign`、`xtool dev run`、`xtool ds`(Developerアカウントや実機に変更が及ぶ可能性がある)
@@ -32,7 +33,7 @@ xtool sdk status            # SDKの状態
 xtool auth status           # 認証の状態
 ```
 
-`xtool devices` は既定で端末が見つかるまで待ち続けるので、`--no-wait` を付けてください。端末の認識には、Macで `node scripts/usbmuxd-relay.mjs` を起動しておく必要があります。
+`xtool devices` は既定で端末が見つかるまで待ち続けるので、`--no-wait` を付けてください。端末の認識には、Macで `npm run relay` を起動しておく必要があります。
 
 `swift build` ではなく `xtool dev build` を使ってください。
 

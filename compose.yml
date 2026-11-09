@@ -28,8 +28,8 @@ services:
       - developer-data:/root/.local/share
 
       # Apple Developer API Key
-      # ファイル名にKey IDを入れないよう、secrets/ に固定の名前で置く(Gitの対象外)
-      - ./secrets/apple-api-key.p8:/run/secrets/apple-api-key.p8:ro
+      # ファイル名にKey IDを入れないよう、private/secrets/ に固定の名前で置く(Gitの対象外)
+      - ./private/secrets/apple-api-key.p8:/run/secrets/apple-api-key.p8:ro
 
     environment:
       CLAUDE_CONFIG_DIR: /root/.claude

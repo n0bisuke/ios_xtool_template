@@ -2,7 +2,9 @@
 # --------------------------------------------------
 # Apple Developer credentials
 # --------------------------------------------------
-/secrets/
+/private/**
+!/private/**/
+!/private/**/README.md
 *.p8
 *.p12
 *.mobileprovision

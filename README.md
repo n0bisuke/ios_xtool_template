@@ -32,14 +32,14 @@ Mac
 
 **2. `compose.yml` の `name:` を変えます。** 他のプロジェクトと同じ名前にしないでください。
 
-**3. APIキーを置きます。** `secrets/` はリポジトリに含まれないので、先に作ります。
+**3. APIキーとXcodeを置きます。** 後から用意するファイルは `private/` にまとめます。詳しくは [`private/README.md`](private/README.md) を参照してください。
 
 ```sh
-mkdir -p secrets
-mv ~/Downloads/AuthKey_XXXXXXXXXX.p8 secrets/apple-api-key.p8
+mv ~/Downloads/AuthKey_XXXXXXXXXX.p8 private/secrets/apple-api-key.p8
+mv ~/Downloads/Xcode_XX.X.xip private/downloads/   # SDKを共有する場合は不要
 ```
 
-ファイル名にKey IDを含めないので、`compose.yml` をそのまま公開できます。`secrets/` と `*.p8` はGitの対象外です。**`.p8` を置く前にコンテナを起動しないでください。** Dockerが同じ名前の空のフォルダを作り、APIキーをマウントできなくなります。そうなったら、コンテナを終了してから `secrets/apple-api-key.p8` のフォルダを削除し、`.p8` を置き直します。
+ファイル名にKey IDを含めないので、`compose.yml` をそのまま公開できます。`private/` の中は `README.md` 以外、Gitの対象外です。**`.p8` を置く前にコンテナを起動しないでください。** Dockerが同じ名前の空のフォルダを作り、APIキーをマウントできなくなります。そうなったら、コンテナを終了してから `secrets/apple-api-key.p8` のフォルダを削除し、`.p8` を置き直します。
 
 **4. コンテナを起動します。**
 
@@ -50,7 +50,7 @@ docker compose run --rm swift
 **5. 初回だけ、コンテナ内でSDKとログインを用意します。** SDKを他のプロジェクトと共有する場合は不要です(`compose.yml` のコメントを参照)。
 
 ```sh
-xtool sdk install /workspace/<Xcodeの.xip>   # .xipはApple Developerのサイトから取得
+xtool sdk install /workspace/private/downloads/Xcode_XX.X.xip
 xtool auth login --mode key                  # Key pathは /run/secrets/apple-api-key.p8
 xtool sdk status
 xtool auth status
@@ -73,7 +73,7 @@ xtool dev build
 1. Macで中継を起動し、そのままにします(Node.jsが必要)。
 
    ```sh
-   node scripts/usbmuxd-relay.mjs
+   npm run relay
    ```
 
 2. iPhoneをUSBでつなぎ、ロックを解除します。

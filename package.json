@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "Mac-side helper scripts. No dependencies; npm install is not needed.",
+  "scripts": {
+    "relay": "node scripts/usbmuxd-relay.mjs"
+  }
+}
