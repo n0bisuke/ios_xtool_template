@@ -18,17 +18,28 @@ Mac
 
 ## 新しいプロジェクトの作り方
 
-**1. このフォルダを新しい場所にコピーします(Mac)。**
+**1. テンプレートから新しいリポジトリを用意します(Mac)。** 次のどちらかの方法を使います。
 
-```sh
-cp -R template ~/path/to/my-app
-cd ~/path/to/my-app
-git init
-```
+- **GitHubで作る:** このリポジトリの「Use this template」から新しいリポジトリを作り、`git clone` します。ボタンが出ない場合は、テンプレートの「Settings > General > Template repository」をオンにします。
+- **履歴なしでコピーする:**
+
+  ```sh
+  git clone --depth 1 https://github.com/n0bisuke/ios_xtool_template.git my-app
+  cd my-app
+  rm -rf .git
+  git init
+  ```
 
 **2. `compose.yml` の `name:` を変えます。** 他のプロジェクトと同じ名前にしないでください。
 
-**3. APIキーを置きます。** `.p8` を `secrets/apple-api-key.p8` という名前で置きます。ファイル名にKey IDを含めないので、`compose.yml` をそのまま公開できます。`secrets/` と `*.p8` はGitの対象外です。
+**3. APIキーを置きます。** `secrets/` はリポジトリに含まれないので、先に作ります。
+
+```sh
+mkdir -p secrets
+mv ~/Downloads/AuthKey_XXXXXXXXXX.p8 secrets/apple-api-key.p8
+```
+
+ファイル名にKey IDを含めないので、`compose.yml` をそのまま公開できます。`secrets/` と `*.p8` はGitの対象外です。**`.p8` を置く前にコンテナを起動しないでください。** Dockerが同じ名前の空のフォルダを作り、APIキーをマウントできなくなります。そうなったら、コンテナを終了してから `secrets/apple-api-key.p8` のフォルダを削除し、`.p8` を置き直します。
 
 **4. コンテナを起動します。**
 
